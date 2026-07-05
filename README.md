@@ -222,3 +222,268 @@ api-monitor/
 ├── README.md
 └── requirements.txt              # Python dependencies
 ```
+
+---
+
+# 🚀 Getting Started
+
+Follow the steps below to run the project locally or using Docker.
+
+## Prerequisites
+
+Ensure the following software is installed on your system:
+
+- Python 3.13 or later
+- PostgreSQL 17 or later
+- Docker Desktop (optional, recommended)
+- Git
+
+---
+
+## Clone the Repository
+
+```bash
+git clone https://github.com/MuneshBabi/api-monitor.git
+
+cd api-monitor
+```
+
+---
+
+## Create a Virtual Environment
+
+### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+
+.venv\Scripts\Activate.ps1
+```
+
+### Linux / macOS
+
+```bash
+python3 -m venv .venv
+
+source .venv/bin/activate
+```
+
+---
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Configure Environment Variables
+
+Create a `.env` file in the project root.
+
+Example:
+
+```env
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/api_monitor
+```
+
+---
+
+## Apply Database Migrations
+
+```bash
+alembic upgrade head
+```
+
+---
+
+## Start the Application
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Once the application starts successfully:
+
+| Service | URL |
+|---------|-----|
+| API | http://localhost:8000 |
+| Swagger UI | http://localhost:8000/docs |
+| ReDoc | http://localhost:8000/redoc |
+
+---
+
+# 🐳 Running with Docker
+
+Start the application and PostgreSQL database using Docker Compose.
+
+```bash
+docker compose up --build
+```
+
+Run in detached mode:
+
+```bash
+docker compose up -d --build
+```
+
+Stop all containers:
+
+```bash
+docker compose down
+```
+
+Remove containers, networks, and volumes:
+
+```bash
+docker compose down -v
+```
+
+---
+
+# 📡 API Reference
+
+The following endpoints are available in the application.
+
+| Method | Endpoint | Description |
+|----------|----------|-------------|
+| GET | `/monitors` | Retrieve all monitors |
+| POST | `/monitors` | Create a new monitor |
+| GET | `/monitors/{monitor_id}` | Retrieve a specific monitor |
+| PUT | `/monitors/{monitor_id}` | Update an existing monitor |
+| DELETE | `/monitors/{monitor_id}` | Delete a monitor |
+| POST | `/monitors/{monitor_id}/check` | Trigger an immediate health check |
+| GET | `/monitors/{monitor_id}/checks` | Retrieve monitoring history |
+| GET | `/monitors/{monitor_id}/health` | Retrieve the latest health status |
+| GET | `/monitors/{monitor_id}/stats` | Retrieve monitoring statistics |
+| GET | `/monitors/dashboard` | Retrieve dashboard summary |
+
+### Create a Monitor
+
+**Request**
+
+```http
+POST /monitors
+```
+
+```json
+{
+    "name": "Google",
+    "url": "https://www.google.com",
+    "interval_minutes": 5
+}
+```
+
+**Response**
+
+```json
+{
+  "id": 1,
+  "name": "Google",
+  "url": "https://google.com/",
+  "status": "ACTIVE",
+  "interval_minutes": 5,
+  "created_at": "2026-07-05T18:12:46.638359+05:30"
+}
+```
+
+### Dashboard
+
+**Request**
+
+```http
+GET /monitors/dashboard
+```
+
+**Response**
+
+```json
+{
+    "total_monitors": 5,
+    "active_monitors": 4,
+    "inactive_monitors": 1,
+    "total_checks": 250,
+    "successful_checks": 242,
+    "failed_checks": 8,
+    "average_response_time_ms": 185.6
+}
+```
+
+---
+
+# 🧪 Running Tests
+
+The project includes both unit tests and integration tests to ensure the reliability of the application.
+
+Run all tests:
+
+```bash
+pytest
+```
+
+Run tests with detailed output:
+
+```bash
+pytest -v
+```
+
+Run a specific test file:
+
+```bash
+pytest tests/test_monitor_router.py
+```
+
+> **Note:** Integration tests use a separate test database to avoid affecting development data.
+
+---
+
+# 📈 Future Enhancements
+
+The following improvements are planned for future versions of the project:
+
+- JWT Authentication and Authorization
+- Role-Based Access Control (RBAC)
+- Email notifications for downtime alerts
+- Slack and Microsoft Teams integrations
+- Prometheus metrics collection
+- Grafana monitoring dashboard
+- Redis caching
+- API rate limiting
+- Health check retry mechanism
+- CI/CD pipeline using GitHub Actions
+- Kubernetes deployment
+- HTTPS support with reverse proxy
+
+---
+
+# 📚 Lessons Learned
+
+Building this project provided practical experience with modern backend development practices, including:
+
+- Designing RESTful APIs using FastAPI.
+- Structuring applications using a layered architecture.
+- Managing database schema changes with Alembic.
+- Working with PostgreSQL using SQLAlchemy ORM.
+- Implementing scheduled background tasks with APScheduler.
+- Writing unit and integration tests with Pytest.
+- Containerizing applications using Docker and Docker Compose.
+- Managing configuration through environment variables.
+- Organizing a maintainable and scalable project structure.
+
+---
+
+# 👨‍💻 Author
+
+**Munesh Babi Tunikala**
+
+Associate Software Engineer with experience in Python backend development, FastAPI, SQLAlchemy, PostgreSQL, Docker, and automated testing.
+
+- GitHub: https://github.com/MuneshBabi
+- LinkedIn: https://www.linkedin.com/in/munesh-babi-tunikala/
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
