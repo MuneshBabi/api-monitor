@@ -1,0 +1,19 @@
+# Auto-detect text files
+* text=auto
+
+# Keep shell scripts with Unix line endings
+*.sh text eol=lf
+
+# Python source files
+*.py text
+
+# Markdown
+*.md text
+
+# YAML
+*.yml text
+*.yaml text
+
+# Environment files
+*.env text
+*.example text
