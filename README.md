@@ -431,7 +431,7 @@ pytest -v
 Run a specific test file:
 
 ```bash
-pytest tests/test_monitor_router.py
+pytest tests/test_api.py
 ```
 
 > **Note:** Integration tests use a separate test database to avoid affecting development data.
